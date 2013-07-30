@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="gb2312"?>
+<DtwConfig>
+    <File_Path>
+      <file fileID="1" name="右手往左挥" path="../DATA/Kinect/DtwData/RightHandMoveToLeft.txt" actionType="1"/>
+     <file fileID="2" name="左手往右挥" path="../DATA/Kinect/DtwData/LeftHandMoveToRight.txt" actionType="1"/>
+    </File_Path>
+</DtwConfig>

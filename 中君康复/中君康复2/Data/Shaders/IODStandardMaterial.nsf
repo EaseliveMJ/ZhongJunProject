@@ -1,0 +1,189 @@
+NSFShader IODStandarMaterial
+{
+	// Object list
+	Objects
+	{
+		Effect_EnvironmentMap		0		EnvWorldProjTransform		
+	}// End Object
+
+	Attributes
+	{
+		Attrib_Texture			baseMap			Artist			0		
+		Attrib_Texture			darkMap			Artist			1
+		Attrib_Texture			decalMap		Artist			2
+		Attrib_Texture			glossMap		Artist			3
+		Attrib_Texture			envMap			Artist			4
+		Attrib_Texture			glowMap			Artist			5
+		
+		Attrib_Bool				darkEnable		Artist			false
+		Attrib_Bool				decalEnable		Artist			false
+		Attrib_Bool				glossEnable		Artist			false
+		Attrib_Bool				envEnable		Artist			false
+		Attrib_Bool				glowEnable		Artist			false
+		
+		Attrib_Float			lightDimmer		Artist			1.0
+		
+	}// End Attributes
+	
+	// Global attribute
+	Global_Attributes
+    {
+		Attrib_Float	   FogStart		Hidden			500.0
+		Attrib_Float	   FogEnd		Hidden			1000.0
+		Attrib_Color	   FogColor		Hidden			1.0, 1.0, 1.0		[(0.0,0.0,0.0) (1.0,1.0,1.0)]
+		
+    }// End global attribute
+
+	PackingDef PosNBTUVsVCs
+	{
+		PD_Stream	0
+		
+            PDP_Position    0   PDT_Float3
+			PDP_Normal		1	PDT_Float3
+			PDP_TexCoord0   2   PDT_Float2
+			PDP_TexCoord1   3   PDT_Float2
+			PDP_TexCoord2   4   PDT_Float2
+			
+	}// End PackingDef
+	
+	Implementation Shader
+	{
+		"This implementation is intended for any standard material for IODSoftware on SM 3.0 compliant hardware"
+		
+		Requirements
+		{
+			Platform 	= DX9|D3D10
+			VSVersion 	= v2.0
+			PSVersion 	= v2.0
+			UserVersion = v0.0
+			
+			UsesNiRenderState = true
+		}// End Requirements
+		
+		RenderStates
+		{
+			AlphaBlendEnable 	= false
+			//AlphaTestEnable 	= true
+			
+			//SpecularEnable      = true
+			
+			ZEnable				= ZB_True
+			ZWriteEnable 		= true
+			ZFunc 				= LessEqual
+
+			FogEnable			= false
+		}// End RenderState
+
+		PackingDef 	PosNBTUVsVCs
+		
+		Pass Pass0
+		{
+			VSProgram
+			{
+				Platform 	= DX9|D3D10
+				Program		= "IODStandardMaterial-V.hlsl"
+				ShaderTarget= vs_2_0
+				EntryPoint 	= vMain
+			}// End VSProgram
+			
+			VS_Constantmap
+			{
+				CM_Defined 	World				g_World			0
+				CM_Defined 	View				g_View			0
+				CM_Defined	Proj				g_Proj			0
+				CM_Defined	EyePos				g_EyePos		0
+				
+				CM_Defined  TexTransformShader  UVSet0_TexTransform 0
+                CM_Defined  TexTransformShader  UVSet1_TexTransform 1
+                CM_Defined  TexTransformShader  UVSet2_TexTransform 2					
+				
+				CM_Object 	EnvWorldProjTransform		WorldProjectionTransform	g_EnvironmentMapWorldProjectionTransform0
+				
+				CM_Global	FogStart	    5		1
+				CM_Global	FogEnd		    6		1
+			}// End VS_Constantmap
+			
+			PSProgram
+			{
+				Platform = DX9|D3D10
+				Program = "IODStandardMaterial-P.hlsl"
+				ShaderTarget = ps_2_0
+				EntryPoint = pMain
+			}// End PSProgram
+			
+			PS_Constantmap
+			{				
+				CM_Attribute	darkEnable				0	1	0
+				CM_Attribute	decalEnable				1	1	0
+				CM_Attribute	envEnable				2	1	0
+				CM_Attribute	glossEnable				3	1	0
+				CM_Attribute	glowEnable				4	1	0		
+				CM_Attribute	lightDimmer				5	1	0
+				CM_Global		FogColor				6	1
+			}// End PS_Constantmap
+				
+			Sampler 0 baseMap
+			{
+				TSS_Texture     = <baseMap>
+                TSAMP_AddressU  = TADDR_Wrap
+                TSAMP_AddressV  = TADDR_Wrap                
+                TSAMP_MagFilter = TEXF_Linear
+                TSAMP_MinFilter = TEXF_Linear
+                TSAMP_MipFilter = TEXF_Linear
+			}// End Sampler0		
+						
+			Sampler 1 darkMap
+			{
+				TSS_Texture     = <darkMap>
+                TSAMP_AddressU  = TADDR_Wrap
+                TSAMP_AddressV  = TADDR_Wrap                
+                TSAMP_MagFilter = TEXF_Linear
+                TSAMP_MinFilter = TEXF_Linear
+                TSAMP_MipFilter = TEXF_Linear
+			}// End Sampler1
+			
+			Sampler 2 decalMap
+			{
+				TSS_Texture     = <decalMap>
+                TSAMP_AddressU  = TADDR_Wrap
+                TSAMP_AddressV  = TADDR_Wrap                
+                TSAMP_MagFilter = TEXF_Linear
+                TSAMP_MinFilter = TEXF_Linear
+                TSAMP_MipFilter = TEXF_Linear
+			}// End Sampler3
+			
+			Sampler 3 glossMap
+			{
+				TSS_Texture     = <glossMap>
+                TSAMP_AddressU  = TADDR_Wrap
+                TSAMP_AddressV  = TADDR_Wrap                
+                TSAMP_MagFilter = TEXF_Linear
+                TSAMP_MinFilter = TEXF_Linear
+                TSAMP_MipFilter = TEXF_Linear
+			}// End Sampler4
+			
+			Sampler 4 envMap
+			{
+				TSS_Texture     = <envMap>
+                TSAMP_AddressU  = TADDR_Wrap
+                TSAMP_AddressV  = TADDR_Wrap                
+                TSAMP_MagFilter = TEXF_Linear
+                TSAMP_MinFilter = TEXF_Linear
+                TSAMP_MipFilter = TEXF_Linear
+			}// End Sampler4
+			
+			Sampler 5 glowMap
+			{
+				TSS_Texture     = <glowMap>
+                TSAMP_AddressU  = TADDR_Wrap
+                TSAMP_AddressV  = TADDR_Wrap                
+                TSAMP_MagFilter = TEXF_Linear
+                TSAMP_MinFilter = TEXF_Linear
+                TSAMP_MipFilter = TEXF_Linear
+			}// End Sampler5
+			
+		}// End Pass		
+	
+	}// End Implementation
+	
+}// End IODStandardMaterial
