@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:KinectSystem;assembly=KinectSystem"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="SendDataOfKinect.TestWindow"
-        Title="TestWindow"  WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None">
+        Title="TestWindow"  WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None" >
+    <Window.Background>
+        <ImageBrush ImageSource="Images\calibration.jpg" />   
+    </Window.Background>
     
     <Viewbox Width="auto" Height="auto">
         <Grid Width="1920" Height="1080">
@@ -21,10 +24,6 @@
          
         
             <!--<MediaElement Grid.ColumnSpan="4" Margin="-173.575,-362.857,-167.11,-313.033" Grid.RowSpan="3" Source="Calibration.avi"/>-->
-            <Grid.Background>
-                <ImageBrush ImageSource="Images\calibration.jpg"/>
-            </Grid.Background>
-
                 <Button Content="开始校准" x:Name="StartCalibration" Grid.Column="1" Grid.Row="1" Click="StartCalibration_Click" Margin="187,36.223,0,45.551" HorizontalAlignment="Left" Width="100"  />
             <Button Content="结束校准" Grid.Column="2" Grid.Row="1"  x:Name="EndCalibration" Click="EndCalibration_Click" Margin="199.981,35.556,276.019,46.213" />
             <Image x:Name="player_image" Grid.ColumnSpan="2" Grid.Column="1" Margin="229,223,229,199" />

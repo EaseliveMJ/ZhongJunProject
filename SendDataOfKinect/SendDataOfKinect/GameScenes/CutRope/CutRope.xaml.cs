@@ -23,9 +23,10 @@ namespace SendDataOfKinect.GameScenes.CutRope
         private MainWindow MainFrame;
         private double MaxAngle;
         private double MinAngle;
-        enum AnimationStage
+        private AnimationStatus m_PreviousAnimationStatus;
+        enum AnimationStatus:int
         {
-            Stage0,
+            Status0 = 0,
             Stage1,
             Stage2,
             Stage3,
@@ -51,6 +52,8 @@ namespace SendDataOfKinect.GameScenes.CutRope
 
             MaxAngle = 90;
             MinAngle = 0;
+
+            m_PreviousAnimationStatus = AnimationStatus.Status0;
         }
 
         void KinectSensor_LoopDoneSomething(object sensor, TimerRoutedEventArgs e)
@@ -71,14 +74,15 @@ namespace SendDataOfKinect.GameScenes.CutRope
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Hidden;
                             MainFrame.LightGreen.Visibility = Visibility.Hidden;
-                            PlayAnimation();
+                            CheckToResetAnimation();
                         }
                         if (this.KinectSensor.HandBodyState == ActiveStates.Yellow && MainFrame.tb_level.Text != null)
                         {
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Visible;
                             MainFrame.LightGreen.Visibility = Visibility.Hidden;
-                            PlayAnimation();
+                            AnimationStatus status = CheckAnimationStatus();
+                            PlayAnimation(status);
                             GamePlay();
                         }
                         if (this.KinectSensor.HandBodyState == ActiveStates.Green && MainFrame.tb_level.Text != null)
@@ -86,7 +90,8 @@ namespace SendDataOfKinect.GameScenes.CutRope
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Visible;
                             MainFrame.LightGreen.Visibility = Visibility.Visible;
-                            PlayAnimation();
+                            AnimationStatus status = CheckAnimationStatus();
+                            PlayAnimation(status);
                             GamePlay();
                         }
                     }
@@ -103,14 +108,15 @@ namespace SendDataOfKinect.GameScenes.CutRope
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Hidden;
                             MainFrame.LightGreen.Visibility = Visibility.Hidden;
-                            PlayAnimation();
+                            CheckToResetAnimation();
                         }
                         if (this.KinectSensor.HandBodyState == ActiveStates.Yellow && MainFrame.tb_level.Text != null)
                         {
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Visible;
                             MainFrame.LightGreen.Visibility = Visibility.Hidden;
-                            PlayAnimation();
+                            AnimationStatus status = CheckAnimationStatus();
+                            PlayAnimation(status);
                             GamePlay();
                         }
                         if (this.KinectSensor.HandBodyState == ActiveStates.Green && MainFrame.tb_level.Text != null)
@@ -118,7 +124,8 @@ namespace SendDataOfKinect.GameScenes.CutRope
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Visible;
                             MainFrame.LightGreen.Visibility = Visibility.Visible;
-                            PlayAnimation();
+                            AnimationStatus status = CheckAnimationStatus();
+                            PlayAnimation(status);
                             GamePlay();
                         }
 
@@ -132,14 +139,15 @@ namespace SendDataOfKinect.GameScenes.CutRope
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Hidden;
                             MainFrame.LightGreen.Visibility = Visibility.Hidden;
-                            PlayAnimation();
+                            CheckToResetAnimation();
                         }
                         if (this.KinectSensor.HandBodyState == ActiveStates.Yellow && MainFrame.tb_level.Text != null)
                         {
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Visible;
                             MainFrame.LightGreen.Visibility = Visibility.Hidden;
-                            PlayAnimation();
+                            AnimationStatus status = CheckAnimationStatus();
+                            PlayAnimation(status);
                             GamePlay();
                         }
                         if (this.KinectSensor.HandBodyState == ActiveStates.Green && MainFrame.tb_level.Text != null)
@@ -147,10 +155,10 @@ namespace SendDataOfKinect.GameScenes.CutRope
                             MainFrame.red.Visibility = Visibility.Visible;
                             MainFrame.Yellow.Visibility = Visibility.Visible;
                             MainFrame.LightGreen.Visibility = Visibility.Visible;
-                            PlayAnimation();
+                            AnimationStatus status = CheckAnimationStatus();
+                            PlayAnimation(status);
                             GamePlay();
                         }
-
                     }
                     break;
                 case GameState.EndGame:
@@ -180,86 +188,117 @@ namespace SendDataOfKinect.GameScenes.CutRope
             }
         }
 
-        private AnimationStage m_PreviousAnimationStage;
-        private void PlayAnimation()
+        private void CheckToResetAnimation()
+        {
+            if (m_PreviousAnimationStatus != AnimationStatus.Status0)
+            {
+                double AngleOfHandElbow_RightSide_Horizon = double.Parse(this.KinectSensor.AngleOfHandElbow_RightSide_Horizon);
+                if (AngleOfHandElbow_RightSide_Horizon < 0)
+                {
+                    Storyboard st = this.FindResource("CutRope") as Storyboard;
+                    lock (st)
+                    {
+                        st.BeginTime = TimeSpan.FromSeconds(0);
+                        st.Duration = TimeSpan.FromSeconds(0);
+                        st.Begin(this, true);
+                    }
+                    m_PreviousAnimationStatus = AnimationStatus.Status0;
+                }
+            }
+        }
+
+        private AnimationStatus CheckAnimationStatus()
         {
             double maxAngle = double.Parse(MainFrame.tb_level.Text);
-            double Angle_Stage1 = maxAngle / 3;
-            double Angle_Stage2 = maxAngle / 3 * 2;
-            double Angle_Stage3 = maxAngle;
+            double Angle_Status1 = maxAngle / 3;
+            double Angle_Status2 = maxAngle / 3 * 2;
+            double Angle_Status3 = maxAngle;
 
-            AnimationStage stage;
-            stage = AnimationStage.InvalidStage;
+            AnimationStatus stage;
+            stage = AnimationStatus.InvalidStage;
             double AngleOfHandElbow_RightSide_Horizon = double.Parse(this.KinectSensor.AngleOfHandElbow_RightSide_Horizon);
-            if (AngleOfHandElbow_RightSide_Horizon < 0)
+
+            switch (m_PreviousAnimationStatus)
             {
-                MainFrame.CurrentTrainingIsLessMin = true;
-                //这时停止动画
-                m_PreviousAnimationStage = AnimationStage.Stage3;
-                stage = AnimationStage.Stage0;
+                case AnimationStatus.Status0:
+                    if (AngleOfHandElbow_RightSide_Horizon >= Angle_Status1 && AngleOfHandElbow_RightSide_Horizon < Angle_Status2)
+                    {
+                        stage = m_PreviousAnimationStatus + 1;
+                    }
+                    break;
+                case AnimationStatus.Stage1:
+                    if (AngleOfHandElbow_RightSide_Horizon >= Angle_Status2 && AngleOfHandElbow_RightSide_Horizon < Angle_Status3)
+                    {
+                        stage = m_PreviousAnimationStatus + 1;
+                    }
+                    break;
+                case AnimationStatus.Stage2:
+                    if (MainFrame.CompleteOneTraining_Time > 4 && double.Parse(this.KinectSensor.AngleOfHandElbow_RightSide_Horizon) > MainFrame.level && MainFrame.CurrentTrainingIsLessMin == true)
+                    {
+                        stage = m_PreviousAnimationStatus + 1;
+                    }
+                    break;
+                case AnimationStatus.Stage3:
+                    if (AngleOfHandElbow_RightSide_Horizon < 0)
+                    {
+                        stage = AnimationStatus.Status0;
+                    }
+                    break;
             }
-            else if (AngleOfHandElbow_RightSide_Horizon >= Angle_Stage1 && AngleOfHandElbow_RightSide_Horizon < Angle_Stage2)
-            {
-                stage = AnimationStage.Stage1;
-            }
-            else if (AngleOfHandElbow_RightSide_Horizon >= Angle_Stage2 && AngleOfHandElbow_RightSide_Horizon < Angle_Stage3)
-            {
-                stage = AnimationStage.Stage2;
-            }
-            else if (AngleOfHandElbow_RightSide_Horizon >= Angle_Stage3)
-            {
-                stage = AnimationStage.Stage3;
-            }
-            if (MainFrame.CompleteOneTraining_Time > 4 && double.Parse(this.KinectSensor.AngleOfHandElbow_RightSide_Horizon) > MainFrame.level && MainFrame.CurrentTrainingIsLessMin == true)
-            {
-                stage = AnimationStage.Stage3;
-            }
+
+            return stage;
+        }
+
+        private void PlayAnimation(AnimationStatus stage)
+        {
+//             textBlock1.Text = m_PreviousAnimationStage.ToString();
+//             textBlock2.Text = stage.ToString();
 
             Storyboard st = this.FindResource("CutRope") as Storyboard;
             lock (st)
             {
-                if (stage != m_PreviousAnimationStage)
+                if (stage != m_PreviousAnimationStatus)
                 {
                     switch (stage)
                     {
-                        case AnimationStage.Stage0:
+                        case AnimationStatus.Status0:
                             //初始状态,
-                            if (m_PreviousAnimationStage == AnimationStage.Stage3)
+                            if (m_PreviousAnimationStatus == AnimationStatus.Stage3)
                             {
                                 st.BeginTime = TimeSpan.FromSeconds(0);
                                 st.Duration = TimeSpan.FromSeconds(0);
                                 st.Begin(this, true);
-                                m_PreviousAnimationStage = stage;
+                                m_PreviousAnimationStatus = stage;
                             }
                             break;
-                        case AnimationStage.Stage1:
+                        case AnimationStatus.Stage1:
                             //播放第一段动画,
-                            if (m_PreviousAnimationStage == AnimationStage.Stage0)
+                            if (m_PreviousAnimationStatus == AnimationStatus.Status0)
                             {
                                 st.BeginTime = TimeSpan.FromSeconds(0);
                                 st.Duration = TimeSpan.FromSeconds(1);
                                 st.Begin(this, true);
-                                m_PreviousAnimationStage = stage;
+                                m_PreviousAnimationStatus = stage;
                             }                        
                              break;
-                        case AnimationStage.Stage2:
+                        case AnimationStatus.Stage2:
                             //播放第二段动画
-                            if (m_PreviousAnimationStage == AnimationStage.Stage1)
+                            if (m_PreviousAnimationStatus == AnimationStatus.Stage1)
                             {
                                 st.BeginTime = TimeSpan.FromSeconds(-1);
                                 st.Duration = TimeSpan.FromSeconds(2);
                                 st.Begin(this, true);
-                                m_PreviousAnimationStage = stage;
+                                m_PreviousAnimationStatus = stage;
                             }                         
                             break;
-                        case AnimationStage.Stage3:
+                        case AnimationStatus.Stage3:
                             //播放第三段动画
-                            if (m_PreviousAnimationStage == AnimationStage.Stage2)
+                            if (m_PreviousAnimationStatus == AnimationStatus.Stage2)
                             {
                                 st.BeginTime = TimeSpan.FromSeconds(-2);
                                 st.Duration = TimeSpan.FromSeconds(3);
                                 st.Begin(this, true);
-                                m_PreviousAnimationStage = stage;
+                                m_PreviousAnimationStatus = stage;
                             }    
                             break;
                     }                    

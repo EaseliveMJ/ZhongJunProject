@@ -29,7 +29,6 @@ Width="900" Height="560" xmlns:my="http://schemas.microsoft.com/surface/2008">
                 <TextBlock Foreground="#FFE71313" FontSize="45" HorizontalAlignment="Left" Height="80" Width="106" Text="仰角:" FontWeight="Bold" Margin="0,5"/>
                 <TextBlock Foreground="#FFE71313" FontSize="45" Width="80"  Height="78" Text="{Binding Value,Converter={StaticResource MyConvert}, ElementName=slider}" HorizontalAlignment="Left" FontWeight="Bold"/>
             </StackPanel>
-                <!--
                 <my:SurfaceSlider x:Name="slider" Margin="10" Grid.Column="1" Grid.Row="1" ValueChanged="kinectAngle_ValueChanged"  VerticalAlignment="Top" Maximum="26" Minimum="-26" Orientation="Vertical"  HorizontalAlignment="Center" Height="310.5" RenderTransformOrigin="0.5,0.5" Width="40">
                 <my:SurfaceSlider.RenderTransform>
                     <TransformGroup>
@@ -40,7 +39,6 @@ Width="900" Height="560" xmlns:my="http://schemas.microsoft.com/surface/2008">
                     </TransformGroup>
                 </my:SurfaceSlider.RenderTransform>
             </my:SurfaceSlider>
-                -->
             <Button x:Name="ChangeImage_bt" Content="深  度" FontSize="40" Foreground="#FFD41414"  Click="color_Click" Height="89"  Grid.Column="1" Grid.Row="2" FontFamily="Kozuka Gothic Pro H" Margin="-17,0,5,0"/>
             
             </StackPanel>

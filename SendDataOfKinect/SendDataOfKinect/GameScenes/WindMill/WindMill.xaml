@@ -17,19 +17,20 @@
         </Storyboard>
     </UserControl.Resources>
     <Viewbox>
-    <Grid  >
+    <Grid Width="1920" Height="1080" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="113*" />
-                <RowDefinition Height="837*" />
-                <RowDefinition Height="130*" />
+           
+                <RowDefinition Height="140*" />
+                <RowDefinition Height="800*" />
+                <RowDefinition Height="140*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="228*" />
             <ColumnDefinition Width="522*" />
             <ColumnDefinition Width="250*" />
         </Grid.ColumnDefinitions>
-        <Viewbox  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,110,7,129" Grid.RowSpan="3">
-            <Image x:Name="image"  HorizontalAlignment="Center"  Width="1167.363" Height="1200"  VerticalAlignment="Center"  Source="/SendDataOfKinect;component/Images/windmill.png" Stretch="None" RenderTransformOrigin="0.51,0.54" >
+        <Viewbox  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" >
+            <Image x:Name="image"  HorizontalAlignment="Center"  Width="1167.363" Height="1115"  VerticalAlignment="Center"  Source="/SendDataOfKinect;component/Images/windmill.png" Stretch="None" RenderTransformOrigin="0.51,0.54" >
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -40,15 +41,27 @@
                 </Image.RenderTransform>
             </Image>
         </Viewbox>
-        <Button Content="校准" Grid.Row="2" Height="77" HorizontalAlignment="Left" Margin="156,26,0,0" Name="button1" VerticalAlignment="Top" Width="125" Click="Calibration_bt" />
-        <Button Content="游戏设置" Grid.Column="2" Grid.Row="2" Height="77" HorizontalAlignment="Left" Margin="173,19,0,0" Name="GameSetting" VerticalAlignment="Top" Width="122" Click="GameSetting_Click" />
+        <Button Content="校准" Grid.Row="3" Height="77" HorizontalAlignment="Left" Margin="156,26,0,0" Name="button1" VerticalAlignment="Top" Width="125" Click="Calibration_bt" />
+        <Button Content="游戏设置" Grid.Column="2" Grid.Row="3" Height="77" HorizontalAlignment="Left" Margin="173,19,0,0" Name="GameSetting" VerticalAlignment="Top" Width="122" Click="GameSetting_Click" />
   
-        <StackPanel Grid.Column="2" Height="129" HorizontalAlignment="Center" Name="Menu"  Width="135" VerticalAlignment="Center" Visibility="Hidden" Margin="172,298,172,410" Grid.Row="1">
-            <Label Content="游戏难度" Height="37" Name="level"  Width="84" Foreground="White" FontSize="18" />
-            <RadioButton Content="最难" Height="25" Name="hard" Foreground="White" FontSize="18"/>
-            <RadioButton Content="中等" Height="25" Name="middle" Foreground="White" FontSize="18"/>
-            <RadioButton Content="简单" Height="25" Name="easy" Foreground="White" FontSize="18"/>
-        </StackPanel>
+        <StackPanel Grid.Column="2" Height="340" HorizontalAlignment="Center" Name="Menu"  Width="260" VerticalAlignment="Center" Visibility="Hidden" Grid.Row="1">
+            <Label Content="游戏难度" Height="70" Name="level"  Width="168" Foreground="White" FontSize="40" />
+                <RadioButton Content="最难" Height="18" Name="hard" Foreground="White" FontSize="10" Width="40" >
+                    <RadioButton.LayoutTransform>
+                        <ScaleTransform ScaleX="5" ScaleY="5"/>
+                    </RadioButton.LayoutTransform>
+                </RadioButton>
+                <RadioButton Content="中等" Height="18" Name="middle" Foreground="White" FontSize="10" Width="40">
+                    <RadioButton.LayoutTransform>
+                        <ScaleTransform ScaleX="5" ScaleY="5"/>
+                    </RadioButton.LayoutTransform>
+                </RadioButton>
+                <RadioButton Content="简单" Height="20" Name="easy" Foreground="White" FontSize="10" Width="40">
+                    <RadioButton.LayoutTransform>
+                        <ScaleTransform ScaleX="5" ScaleY="5"/>
+                    </RadioButton.LayoutTransform>
+                </RadioButton>
+            </StackPanel>
         
     </Grid>
     </Viewbox>

@@ -40,24 +40,22 @@ namespace SendDataOfKinect
             timer.Start();
         
         }
-
         void timer_Tick(object sender, EventArgs e)
         {
             this.progressbar.Value = this.Media.Position.TotalSeconds;
         }
-
         private void progressbar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
            
             if (e.NewValue == 8)
             {
-                this.Content = new Setting();
+                VideosOfTraining ShowVideo = new VideosOfTraining();
+                ShowVideo.Show();
+                this.WindowState = WindowState.Minimized;
                 this.timer.Stop();
                 this.thread.Abort();
-               
+                this.Close();
             }
         }
-
-
     }
 }

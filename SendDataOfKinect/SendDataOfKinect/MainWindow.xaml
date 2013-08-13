@@ -15,7 +15,6 @@
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="viewbox" AccelerationRatio="0.2" Completed="DoubleAnimationUsingKeyFrames_Completed">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:8" Value="1440"/>
-                <!--<EasingDoubleKeyFrame KeyTime="0:0:1" Value="1440"/>-->
         	</DoubleAnimationUsingKeyFrames>
                 </Storyboard>
     </Window.Resources>
@@ -32,8 +31,8 @@
             <RowDefinition Height="15*" />
             <RowDefinition Height="132*"/>
             <RowDefinition Height="84*"/>
-            <RowDefinition Height="648*" />
-            <RowDefinition Height="54*"/>
+            <RowDefinition Height="676*" />
+            <RowDefinition Height="26*"/>
             <RowDefinition Height="53*" />
             <RowDefinition Height="55*" />
         </Grid.RowDefinitions>
@@ -50,7 +49,7 @@
         <Kinect:KinectProcess x:Name="kinect"  AngleOfKinectSensor="{Binding ElementName=userInfo,Path=AngleOfKinect }" LoopDoneSomething="kinect_LoopDoneSomething"  />
             <!--风车-->
         <Viewbox  Grid.Row="3" Grid.Column="3" >
-        <Frame x:Name="GameArea" BorderThickness="3,3,3,3" Width="1000" Height="700" NavigationUIVisibility="Hidden"   HorizontalAlignment="Center">
+        <Frame x:Name="GameArea" BorderThickness="3,3,3,3" Width="1200" Height="760" NavigationUIVisibility="Hidden"   HorizontalAlignment="Center">
             <Frame.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFFCFCFC" Offset="0" />

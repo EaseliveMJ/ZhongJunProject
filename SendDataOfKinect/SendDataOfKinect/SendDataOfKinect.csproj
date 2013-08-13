@@ -88,7 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ExitButton.xaml.cs">
+    <Compile Include="Controls\ExitButton.xaml.cs">
       <DependentUpon>ExitButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameScenes\CutRope\CutRope.xaml.cs">
@@ -97,17 +97,17 @@
     <Compile Include="GameScenes\WindMill\WindMill.xaml.cs">
       <DependentUpon>WindMill.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PositionOfPlayer.xaml.cs">
+    <Compile Include="Controls\PositionOfPlayer.xaml.cs">
       <DependentUpon>PositionOfPlayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Setting.xaml.cs">
-      <DependentUpon>Setting.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingAndStartWindow.xaml.cs">
       <DependentUpon>SettingAndStartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingInMain.xaml.cs">
       <DependentUpon>SettingInMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SkipButton.xaml.cs">
+      <DependentUpon>SkipButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
@@ -116,7 +116,10 @@
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConvert.cs" />
-    <Page Include="ExitButton.xaml">
+    <Compile Include="VideosOfTraining.xaml.cs">
+      <DependentUpon>VideosOfTraining.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\ExitButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -140,19 +143,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PositionOfPlayer.xaml">
+    <Page Include="Controls\PositionOfPlayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Setting.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingAndStartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingInMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SkipButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,6 +166,10 @@
     <Page Include="UserInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VideosOfTraining.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

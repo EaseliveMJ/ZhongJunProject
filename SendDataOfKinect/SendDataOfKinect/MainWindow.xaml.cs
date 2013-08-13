@@ -88,9 +88,8 @@ namespace SendDataOfKinect
         /// <param name="e"></param>
         private void back_bt_Click(object sender, RoutedEventArgs e)
         {
-            SettingAndStartWindow setting = new SettingAndStartWindow();
-            setting.Content = new Setting();
-            setting.Show();
+            VideosOfTraining ShowVideo = new VideosOfTraining();
+            ShowVideo.Show();
             this.Close();
         }
 
@@ -212,10 +211,10 @@ namespace SendDataOfKinect
         /// <param name="e"></param>
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            //
+            this.kinect.StopKinect();
             this.Close();
             Application.Current.Shutdown();
-            this.kinect.StopKinect();
+          
         }
 
     
@@ -304,5 +303,8 @@ namespace SendDataOfKinect
             this.GameArea.Width = 1920;
             this.GameArea.Height = 1080;
         }
+
+      
+
     }
 }

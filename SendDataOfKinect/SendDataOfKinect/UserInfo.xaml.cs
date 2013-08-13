@@ -93,7 +93,7 @@ namespace SendDataOfKinect
 
         private void kinectAngle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //this.AngleOfKinect = Convert.ToInt16(slider.Value);
+            this.AngleOfKinect = Convert.ToInt16(slider.Value);
         }
         public void InitImage()
         {
