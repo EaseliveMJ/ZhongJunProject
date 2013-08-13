@@ -1,1 +1,0 @@
-copy App_²¥·ÅÆ¬Í·.xaml App.xaml
